@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="MainApp">
+<head>
+    <!-- Common Meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+
+    <!-- Site Title -->
+    <title id="s_title">Stack the Cards</title>
+
+    <script src="~/app/assets/js/jquery-1.11.2.min.js"></script>
+    <script src="~/app/assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" crossorigin="anonymous">
+    @*<link href="~/app/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/app/style.css" rel="stylesheet" type="text/css" />
+    <script src="~/app/assets/js/angular.min.js"></script>
+    <script src="~/app/module.js"></script>
+    <script src="~/app/controller.js"></script>
+    <script src="~/app/filter.js"></script>
+    <script src="~/app/directive.js"></script>
+    <script src="~/app/service.js"></script>
+
+
+
+
+
+</head>
+
+<body ng-controller="MainController" class=" ">
+  <div class="border-adjust">
+      <span class="title-style">Stack the Cards</span>
+  </div>
+    <div>
+        <ul id="card-trigger">
+            <li class="card-element" ng-repeat=" card in CardIds | startFrom:currentPage*pageSize | limitTo:pageSize  track by $index" ng-click="getCardTitle(card)">post <span ng-bind="card"></span></li>
+
+        </ul>
+
+        <div class="paginator-style">
+            <label class="btn btn-light" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1"><<</label>
+                      {{currentPage+1}}/{{numberOfPages()}}
+            <label class="btn btn-light" ng-disabled="currentPage >= CardIds.length/pageSize - 1" ng-click="currentPage=currentPage+1">>></label>
+
+
+
+        </div>
+
+    </div>
+    <div id="card-holder" >
+
+        <div class="align-center">
+            <span class="" ng-if="CardContents.length == 0"> No Cards Yet</span>
+        </div> 
+        <div ng-if="CardContents.length >  0"  class="set-padding" ng-repeat="CardContent in CardContents track by $index">
+            <app-template></app-template>
+        </div>
+
+    </div>
+
+</body>
+</html>
